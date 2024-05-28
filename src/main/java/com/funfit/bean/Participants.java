@@ -6,16 +6,16 @@ public class Participants {
 	private int age;
 	private String phone_number;
 	private int batch_id;
-	public int getParticipant_id() {
+	public int getParticipantId() {
 		return participant_id;
 	}
-	public void setParticipant_id(int participant_id) {
+	public void setParticipantId(int participant_id) {
 		this.participant_id = participant_id;
 	}
-	public String getFirst_name() {
+	public String getFirstName() {
 		return first_name;
 	}
-	public void setFirst_name(String first_name) {
+	public void setFirstName(String first_name) {
 		this.first_name = first_name;
 	}
 	public int getAge() {
@@ -24,16 +24,16 @@ public class Participants {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public String getPhone_number() {
+	public String getPhoneNumber() {
 		return phone_number;
 	}
-	public void setPhone_number(String phone_number) {
+	public void setPhoneNumber(String phone_number) {
 		this.phone_number = phone_number;
 	}
-	public int getBatch_id() {
+	public int getBatchId() {
 		return batch_id;
 	}
-	public void setBatch_id(int batch_id) {
+	public void setBatchId(int batch_id) {
 		this.batch_id = batch_id;
 	}
 	public Participants() {

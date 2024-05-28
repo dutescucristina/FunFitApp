@@ -11,16 +11,16 @@ public class Batch {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public int getBatch_id() {
+	public int getBatchId() {
 		return batch_id;
 	}
-	public void setBatch_id(int batch_id) {
+	public void setBatchId(int batch_id) {
 		this.batch_id = batch_id;
 	}
-	public String getType_of_batch() {
+	public String getTypeOfBatch() {
 		return type_of_batch;
 	}
-	public void setType_of_batch(String type_of_batch) {
+	public void setTypeOfBatch(String type_of_batch) {
 		this.type_of_batch = type_of_batch;
 	}
 	
