@@ -13,33 +13,63 @@ public class BatchDao {
 
 	public int addBatch(Batch batch) {
 		try {
-	Connection con = DbResource.getDbConnection();
-	PreparedStatement pstmt = con.prepareStatement("insert into batch(typeofbatch,time) values(?,?)");
-	pstmt.setString(1, batch.getTypeOfBatch());
-	pstmt.setString(2, batch.getTime());
-	return pstmt.executeUpdate();
-		} catch (Exception e) {
-			System.err.println(e);
-			return 0;
-		}
+			Connection con = DbResource.getDbConnection();
+			PreparedStatement pstmt = con.prepareStatement("insert into batch(type_of_batch,time) values(?,?)");
+			pstmt.setString(1, batch.getTypeOfBatch());
+			pstmt.setString(2, batch.getTime());
+			return pstmt.executeUpdate();
+				} catch (Exception e) {
+					System.err.println(e);
+					return 0;
+				}
 	}
 	
 	public List<Batch> viewAllBatches() {
 		List<Batch> listOfBatch = new ArrayList<>();
 		try {
-	Connection con = DbResource.getDbConnection();
-	PreparedStatement pstmt = con.prepareStatement("select * from batch");
-	ResultSet rs = pstmt.executeQuery();
-	while(rs.next()) {
-		Batch b = new Batch();
-		b.setBatchId(rs.getInt(1));
-		b.setTypeOfBatch(rs.getString(2));
-		b.setTime(rs.getString(3));
-		listOfBatch.add(b);
-		}
+			Connection con = DbResource.getDbConnection();
+			PreparedStatement pstmt = con.prepareStatement("select * from batch");
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Batch b = new Batch();
+				b.setBatchId(rs.getInt(1));
+				b.setTypeOfBatch(rs.getString(2));
+				b.setTime(rs.getString(3));
+				listOfBatch.add(b);
+				}
+				} catch (Exception e) {
+					System.err.println(e);
+				}	
+				return listOfBatch;
+	}
+	
+	public boolean deleteBatch(int batchid) {
+		try {
+			Connection con = DbResource.getDbConnection();
+			PreparedStatement pstmt = con.prepareStatement("delete from batch where batch_id = ?");
+			pstmt.setInt(1,  batchid);
+			return pstmt.execute();
+				} catch (Exception e) {
+					System.err.println(e);
+					return false;
+				}
+	}
+	
+	public Batch getBatch(int batchid) {
+		Batch result = new Batch();
+		try {
+			Connection con = DbResource.getDbConnection();
+			PreparedStatement pstmt = con.prepareStatement("select * from batch where batch_id = ?");
+			pstmt.setInt(1,  batchid);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				result.setBatchId(rs.getInt(1));
+				result.setTypeOfBatch(rs.getString(2));
+				result.setTime(rs.getString(3));
+			}
 		} catch (Exception e) {
 			System.err.println(e);
-		}
-		return listOfBatch;
+		}	
+		return result;
 	}
 }

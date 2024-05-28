@@ -19,4 +19,8 @@ public class ParticipantsService {
 	public List<Participants> viewAllParticipants() {
 		return pd.viewAllParticipants();
 	}
+	
+	public boolean deleteParticipant(int participantid){
+		return pd.deleteParticipant(participantid);
+	}
 }

@@ -19,4 +19,12 @@ public class BatchService {
 	public List<Batch> viewAllBatch(){
 		return db.viewAllBatches();
 	}
+	
+	public boolean deleteBatch(int batchid){
+		return db.deleteBatch(batchid);
+	}
+	
+	public Batch getBatch(int batchid){
+		return db.getBatch(batchid);
+	}
 }

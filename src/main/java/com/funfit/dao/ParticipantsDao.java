@@ -15,7 +15,7 @@ public class ParticipantsDao {
 	public int addParticipants(Participants participants) {
 		try {
 	Connection con = DbResource.getDbConnection();
-	PreparedStatement pstmt = con.prepareStatement("insert into participants(fname,age,phonenumber,bid) values(?,?,?,?);");
+	PreparedStatement pstmt = con.prepareStatement("insert into participants(first_name,age,phone_number,batch_id) values(?,?,?,?);");
 	pstmt.setString(1, participants.getFirstName());
 	pstmt.setInt(2, participants.getAge());
 	pstmt.setString(3, participants.getPhoneNumber());
@@ -46,5 +46,17 @@ public class ParticipantsDao {
 			System.err.println(e);
 		}
 		return listOfParticipats;
+	}
+	
+	public boolean deleteParticipant(int participantid) {
+		try {
+			Connection con = DbResource.getDbConnection();
+			PreparedStatement pstmt = con.prepareStatement("delete from participants where participant_id = ?");
+			pstmt.setInt(1,  participantid);
+			return pstmt.execute();
+				} catch (Exception e) {
+					System.err.println(e);
+					return false;
+				}
 	}
 }

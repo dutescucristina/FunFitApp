@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.funfit.bean.Batch;
 import com.funfit.bean.Participants;
 import com.funfit.service.ParticipantsService;
 
@@ -30,19 +31,31 @@ public class ParticipantsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
 		HttpSession hs = request.getSession();
-		List<Participants> listOfParticipants = ps.viewAllParticipants();
-		hs.setAttribute("participants", listOfParticipants);
-		response.sendRedirect("viewParticipants.jsp");
+		String flagValue = request.getParameter("flag");
+		if(flagValue.equals("1")) {
+			List<Participants> listOfParticipants = ps.viewAllParticipants();
+			hs.setAttribute("participants", listOfParticipants);
+			response.sendRedirect("viewParticipants.jsp");
+		} else {
+			String participantid = request.getParameter("participantid");
+			System.out.println(participantid);
+			ps.deleteParticipant(Integer.parseInt(participantid));
+
+			List<Participants> listOfParticipants2 = ps.viewAllParticipants();
+			HttpSession hs2 = request.getSession();
+			hs2.setAttribute("participants", listOfParticipants2);
+			response.sendRedirect("viewParticipants.jsp");
+		}
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
-		String fname = request.getParameter("fname");
+		String fname = request.getParameter("firstname");
 		int age  = Integer.parseInt(request.getParameter("age"));
 		String phonenumber = request.getParameter("phonenumber");
-		int bid = Integer.parseInt(request.getParameter("bid"));
+		int bid = Integer.parseInt(request.getParameter("batchid"));
 		RequestDispatcher rd = request.getRequestDispatcher("addParticipants.jsp");
 		Participants pp = new Participants();
 		pp.setFirstName(fname);
