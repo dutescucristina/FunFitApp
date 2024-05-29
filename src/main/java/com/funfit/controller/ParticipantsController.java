@@ -39,7 +39,6 @@ public class ParticipantsController extends HttpServlet {
 			response.sendRedirect("viewParticipants.jsp");
 		} else if(flagValue.equals("2")){
 			String participantid = request.getParameter("participantid");
-			System.out.println(participantid);
 			ps.deleteParticipant(Integer.parseInt(participantid));
 
 			List<Participants> listOfParticipants2 = ps.viewAllParticipants();

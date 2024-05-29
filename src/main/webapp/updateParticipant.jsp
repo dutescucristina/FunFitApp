@@ -25,7 +25,7 @@
 <core:forEach var="bid" items="${sessionScope.batches}">
 	<option value="<core:out value="${bid.getBatchId()}"></core:out>" ${bid.getBatchId() == sessionScope.participant.getBatchId() ? 'selected': ''}> <core:out value="${bid.getTypeOfBatch()}"></core:out> 
 	- 
-	<core:out value="${bid.getTime()}"></core:out></option>
+	<core:out value="${bid.getTime()}:00"></core:out></option>
 </core:forEach>
 </select>
 <br/>
