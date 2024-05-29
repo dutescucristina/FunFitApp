@@ -33,7 +33,6 @@ public class ParticipantsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession hs = request.getSession();
 		String flagValue = request.getParameter("flag");
-		System.out.println(flagValue);
 		if(flagValue.equals("1")) {
 			List<Participants> listOfParticipants = ps.viewAllParticipants();
 			hs.setAttribute("participants", listOfParticipants);
