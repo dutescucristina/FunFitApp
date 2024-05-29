@@ -23,4 +23,12 @@ public class ParticipantsService {
 	public boolean deleteParticipant(int participantid){
 		return pd.deleteParticipant(participantid);
 	}
+	
+	public Participants getParticipant(int participantid){
+		return pd.getParticipant(participantid);
+	}
+	
+	public int updateParticipant(Participants participant){
+		return pd.updateParticipant(participant);
+	}
 }

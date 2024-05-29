@@ -23,8 +23,4 @@ public class BatchService {
 	public boolean deleteBatch(int batchid){
 		return db.deleteBatch(batchid);
 	}
-	
-	public Batch getBatch(int batchid){
-		return db.getBatch(batchid);
-	}
 }

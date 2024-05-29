@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.funfit.bean.Batch;
-import com.funfit.resource.DbResource;
+import static com.funfit.resource.DbResource.*;
 
 public class BatchDao {
 
 	public int addBatch(Batch batch) {
 		try {
-			Connection con = DbResource.getDbConnection();
+			Connection con = GetResource().getDbConnection();
 			PreparedStatement pstmt = con.prepareStatement("insert into batch(type_of_batch,time) values(?,?)");
 			pstmt.setString(1, batch.getTypeOfBatch());
 			pstmt.setString(2, batch.getTime());
@@ -27,7 +27,7 @@ public class BatchDao {
 	public List<Batch> viewAllBatches() {
 		List<Batch> listOfBatch = new ArrayList<>();
 		try {
-			Connection con = DbResource.getDbConnection();
+			Connection con = GetResource().getDbConnection();
 			PreparedStatement pstmt = con.prepareStatement("select * from batch");
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -45,7 +45,7 @@ public class BatchDao {
 	
 	public boolean deleteBatch(int batchid) {
 		try {
-			Connection con = DbResource.getDbConnection();
+			Connection con = GetResource().getDbConnection();
 			PreparedStatement pstmt = con.prepareStatement("delete from batch where batch_id = ?");
 			pstmt.setInt(1,  batchid);
 			return pstmt.execute();
@@ -53,23 +53,5 @@ public class BatchDao {
 					System.err.println(e);
 					return false;
 				}
-	}
-	
-	public Batch getBatch(int batchid) {
-		Batch result = new Batch();
-		try {
-			Connection con = DbResource.getDbConnection();
-			PreparedStatement pstmt = con.prepareStatement("select * from batch where batch_id = ?");
-			pstmt.setInt(1,  batchid);
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
-				result.setBatchId(rs.getInt(1));
-				result.setTypeOfBatch(rs.getString(2));
-				result.setTime(rs.getString(3));
-			}
-		} catch (Exception e) {
-			System.err.println(e);
-		}	
-		return result;
 	}
 }

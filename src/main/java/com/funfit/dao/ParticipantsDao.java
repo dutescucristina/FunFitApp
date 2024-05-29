@@ -1,20 +1,20 @@
 package com.funfit.dao;
 
+import static com.funfit.resource.DbResource.GetResource;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.funfit.bean.Batch;
 import com.funfit.bean.Participants;
-import com.funfit.resource.DbResource;
 
 public class ParticipantsDao {
 
 	public int addParticipants(Participants participants) {
 		try {
-	Connection con = DbResource.getDbConnection();
+	Connection con = GetResource().getDbConnection();
 	PreparedStatement pstmt = con.prepareStatement("insert into participants(first_name,age,phone_number,batch_id) values(?,?,?,?);");
 	pstmt.setString(1, participants.getFirstName());
 	pstmt.setInt(2, participants.getAge());
@@ -30,7 +30,7 @@ public class ParticipantsDao {
 	public List<Participants> viewAllParticipants() {
 		List<Participants> listOfParticipats = new ArrayList<>();
 		try {
-	Connection con = DbResource.getDbConnection();
+	Connection con = GetResource().getDbConnection();
 	PreparedStatement pstmt = con.prepareStatement("select * from participants");
 	ResultSet rs = pstmt.executeQuery();
 	while(rs.next()) {
@@ -50,13 +50,51 @@ public class ParticipantsDao {
 	
 	public boolean deleteParticipant(int participantid) {
 		try {
-			Connection con = DbResource.getDbConnection();
+			Connection con = GetResource().getDbConnection();
 			PreparedStatement pstmt = con.prepareStatement("delete from participants where participant_id = ?");
 			pstmt.setInt(1,  participantid);
 			return pstmt.execute();
 				} catch (Exception e) {
 					System.err.println(e);
 					return false;
+				}
+	}
+	
+	public Participants getParticipant(int participantid) {
+		Participants result = new Participants();
+		try {
+	Connection con = GetResource().getDbConnection();
+	PreparedStatement pstmt = con.prepareStatement("select * from participants where participant_id = ?");
+	pstmt.setInt(1,  participantid);
+	ResultSet rs = pstmt.executeQuery();
+	while(rs.next()) {
+		result.setParticipantId(rs.getInt(1));
+		result.setFirstName(rs.getString(2));
+		result.setAge(rs.getInt(3));
+		result.setPhoneNumber(rs.getString(4));
+		result.setBatchId(rs.getInt(5));
+		
+		}
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+		return result;
+	}
+	
+	public int updateParticipant(Participants participant) {
+		try {
+			Connection con = GetResource().getDbConnection();
+			PreparedStatement pstmt = con.prepareStatement("update participants set first_name = ?, age = ?, phone_number = ?, batch_id = ? where participant_id = ?");
+					
+			pstmt.setString(1,  participant.getFirstName());
+			pstmt.setInt(2, participant.getAge());
+			pstmt.setString(3, participant.getPhoneNumber());
+			pstmt.setInt(4,  participant.getBatchId());
+			pstmt.setInt(5, participant.getParticipantId());
+			return pstmt.executeUpdate();
+				} catch (Exception e) {
+					System.err.println(e);
+					return 0;
 				}
 	}
 }

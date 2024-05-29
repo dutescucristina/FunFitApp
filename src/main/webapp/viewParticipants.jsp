@@ -26,6 +26,7 @@
 	<td><core:out value="${participant.getPhoneNumber()}"></core:out> </td>
 	<td><core:out value="${participant.getBatchId()}"></core:out> </td>
 	<td><a href="ParticipantsController?flag=2&participantid=${participant.getParticipantId()}">Delete</a></td>
+	<td><a href="ParticipantsController?flag=3&participantid=${participant.getParticipantId()}">Edit</a></td>
 	</tr>
 </core:forEach>
 </table>
