@@ -12,7 +12,8 @@
 <h2>Update Participants Details</h2>
 <form action="ParticipantsController" method="post">
 
-<input type="hidden"  name="participantid" value="${sessionScope.participant.getParticipantId()}"><br/>
+<label>Id</label>
+<input type="text" readonly name="participantid" value="${sessionScope.participant.getParticipantId()}"><br/>
 <label>First Name</label>
 <input type="text" name="firstname" value="${sessionScope.participant.getFirstName()}"><br/>
 <label>Age</label>
